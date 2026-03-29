@@ -28,7 +28,7 @@ Traditional (siloed):                    worktree-compose (unified):
 - **Git worktree isolation** — each feature gets its own branches, no interference
 - **Zero-install dependency sharing** — symlinks node_modules, leverages shared gem/module caches
 - **Port conflict resolution** — auto-assigns unique dev server ports per workspace
-- **Any code agent** — works with Claude Code, Codex CLI, or any CLI-based agent
+- **Any code agent** — works with Claude Code, Codex CLI, OpenCode, Cursor, Gemini CLI
 
 ## Supported Ecosystems
 
@@ -39,14 +39,31 @@ Node.js (pnpm/npm/Yarn/Bun) | Ruby (Bundler) | Python (pip/Poetry/uv) | Go | Rus
 ### Claude Code
 
 ```bash
-claude skill add --from github:freedomprogramer/worktree-compose
+claude plugin add --from github:freedomprogramer/worktree-compose
 ```
 
-### Manual
+### Codex CLI
 
 ```bash
-cp -r . ~/.claude/skills/worktree-compose/
+git clone https://github.com/freedomprogramer/worktree-compose.git ~/.codex/worktree-compose
+ln -sf ~/.codex/worktree-compose/skills/worktree-compose ~/.agents/skills/worktree-compose
 ```
+
+### OpenCode
+
+Add to your `opencode.json`:
+
+```json
+{
+  "plugin": [
+    "worktree-compose@git+https://github.com/freedomprogramer/worktree-compose.git"
+  ]
+}
+```
+
+### Cursor
+
+Install from the Cursor plugin marketplace, or manually copy `.cursor-plugin/` and `skills/` to your workspace.
 
 ## Usage
 
@@ -80,7 +97,7 @@ cp -r . ~/.claude/skills/worktree-compose/
 ### Launch agents
 
 ```bash
-# Full-context (recommended):
+# Full-context (recommended — agent sees all projects):
 cd my-project-worktrees/booking-feature && claude
 
 # Or per-project:

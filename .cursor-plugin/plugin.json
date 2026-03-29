@@ -1,0 +1,5 @@
+{
+  "name": "worktree-compose",
+  "version": "1.0.0",
+  "description": "Compose unified full-context workspaces from multiple independent repositories using git worktrees, with automatic dependency sharing and port conflict resolution."
+}
