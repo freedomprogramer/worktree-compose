@@ -264,16 +264,22 @@ offset = worktree_index * 10
 # worktree 2:         3020 (offset 20)
 ```
 
-To determine `worktree_index`, count existing worktrees for this project:
+To determine `worktree_index`, count existing worktrees **before** creating the new one:
 
 ```bash
 cd <project-path>
 git worktree list | wc -l   # includes main, so index = count - 1
+# Calculate BEFORE creating the worktree, not after
 ```
 
 ### 5.2 Write Port Configuration
 
-Create or update a `.env.local` (or equivalent) in each worktree with the assigned ports:
+Create or update a `.env.local` (or equivalent) in each worktree with the assigned ports.
+
+**Important**: Check if the port is hardcoded in config files (e.g., `vite.config.*`, `puma.rb`).
+If so, warn the user that the `.env.local` port may not take effect and suggest either:
+- Modifying the config to read from environment variables
+- Using the CLI flag instead (e.g., `vite --port <N>`, `rails s -p <N>`)
 
 **Node.js (Vite/CRA/Next.js):**
 ```bash
